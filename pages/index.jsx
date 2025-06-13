@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,10 +15,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
-
 export default function Home()
-{
+ {
+   useEffect(async() =>{
+    const ax= await axios.post("http://localhost:3001/createdata",
+    {
+    "name": "Hann",
+    "city":"kochi",
+    "age": 20
+})
+console.log("Response",ax)
+   },[])
+
+   
   
   const [name,setName]=useState("")
   console.log("Name",name)
@@ -44,6 +54,8 @@ function handlePassword(event)
   else
   console.log("Success")
  }
+ 
+
   return(
      <>
     <h1>
